@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>mastermind</title>
+    <link rel="shortcut icon" href="img/Capture d’écran 2023-06-04 100931.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <a id="a" href="index.html"><img id="logoGif" src="img/MasterMind.gif" alt="logo animé mastermind, le master des chiffres"></a>
+        <div id="h1"><h1 class="neon-title">Bienvenue dans Mastermind !</h1></div>
+    </header>
+    <main>
+        <div id="game">
+            <div id="info">
+                <img id="minions" src="img/minion.gif" class="cacheCache" alt="minions qui applaudissent">
+                <img id="logoT" class="cacheCache" src="img/dabulu.gif" alt="personne qui dance">
+                <p id="perdu" class="cacheCache">Vous Avez perdu </p>
+                <div id="blocSubRes">
+                    <button class="subRes" id="submit" type="submit"> commencer</button>
+                    <button class="subRes cacheCache" id="reset" type="reset">annuler</button>
+                </div>
+                <div id="blocCouleurSelect" class="cacheCache">
+                    <p class="couleurSelect" id="red" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="green" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="blue" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="yellow" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="orange" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="pink" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="black" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="white" draggable="true" ondragstart="dragStart(event)"></p>
+                </div>
+                <div class="blocEssai cacheCache">
+                    <p class="texteEssai" id="titreEssai">Nombre d'essai(s) restant(s) :</p>
+                    <p id="nombreEssai">10</p>
+                </div>
+                <div id="blocRecommencer" class="cacheCache">
+                <button class="subRes" id="recommencer" type="submit">recommencer</button>
+                </div>
+            </div>
+            <div id="jeu">
+                <div id="flexResultat" class="cacheCache">
+                    <div id="blocResultat">
+                        <p id="texteResultat">les couleurs à deviner :</p>
+                        <div id="couleurResultat">
+                            <p class="Nb" id="couleur1"></p>
+                            <p class="Nb" id="couleur2"></p>
+                            <p class="Nb" id="couleur3"></p>
+                            <p class="Nb" id="couleur4"></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="blocCouleur">
+                    <div id="couleurIndice">
+                        <div id="couleur">
+                            <div class="Nb" id="color1" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                            <div class="Nb" id="color2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                            <div class="Nb" id="color3" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                            <div class="Nb" id="color4" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                        </div>
+                        <div id="indice" class="hidden">
+                            <p class="bulle" id="indice1"></p>
+                            <p class="bulle2" id="indice2"></p>
+                            <p class="bulle" id="indice3"></p>
+                            <p class="bulle2" id="indice4"></p>
+                        </div>
+                        <button id="valider">vérifier</button>
+                    </div>
+                </div>
+                <div id="nouveauxBlocs">
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="mastermind.js"></script>
+</body>
+</html>
