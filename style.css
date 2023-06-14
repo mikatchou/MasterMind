@@ -342,6 +342,7 @@ footer {
     }
     #logoGif  {
         max-width: 60%;
+        margin: 0;
     }
     #h1 {
         display: none;
@@ -430,6 +431,7 @@ footer {
     }
     #couleurResultat {
         margin-bottom: 10px;
+        width: 100%;
     }
     #submit {
         font-size: 20px;
