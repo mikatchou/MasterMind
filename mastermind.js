@@ -307,7 +307,6 @@ boutonValider.addEventListener('click', function() {
     
 
     var colorsSelected = validerSelection();
-    console.log(colorsSelected)
 
     if (colorsSelected.length < 4) {
 
