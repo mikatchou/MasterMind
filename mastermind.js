@@ -38,8 +38,6 @@ function afficherColorRandom () {
     
 }
 
-let previousElement = null;
-
 // variable qui stocke les couleurs à glisser
 const couleurSelectElements = document.querySelectorAll('.couleurSelect');
 
@@ -51,9 +49,7 @@ couleurSelectElements.forEach((element) => {
 // Gestionnaire d'événement pour le début du glissement
 function dragStart(event) {
     const cloneElement = event.target.cloneNode(true);
-    cloneElement.isdropped = false; 
     event.dataTransfer.setData('text/plain', cloneElement.id);
-    previousElement = event.target;
 }
 
 // Ajouter le gestionnaire d'événement pour le dépôt (drop)
@@ -79,11 +75,6 @@ function drop(event) {
         // Créer le clone de l'élément
         const cloneElement = couleurElement.cloneNode(true);
         targetElement.appendChild(cloneElement);
-        // Marquer l'élément de couleur comme déposé
-        couleurElement.isDropped = true;
-    } else {
-        const parentElement = couleurElement.parentNode;
-        parentElement.insertBefore(couleurElement, previousElement.nextSibling);
     }
 }
 
