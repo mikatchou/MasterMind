@@ -86,7 +86,7 @@ function diminuerEssais() {
     nombreEssais--;
     essais.innerText = nombreEssais.toString();
 
-    if (nombreEssais === 0 && !gagne) {
+    if (nombreEssais === 9 && !gagne) {
 
         const boutonAnnuler = document.getElementById('reset')
         const blocCouleurSelect = document.getElementById('blocCouleurSelect');
@@ -351,6 +351,14 @@ boutonValider.addEventListener('click', function() {
     const divNouveauxBlocs = document.getElementById('nouveauxBlocs')
     // Ajouter le nouveau bloc de jeu à la section du jeu
     divNouveauxBlocs.appendChild(nouveauBlocJeu);
+
+    console.log(essais)
+
+    // cacher le blocCouleur si gagné ou perdu
+    if (gagne || nombreEssais === 9) {
+        const blocDrop = document.querySelector('#jeu .blocCouleur')
+        blocDrop.classList.add('cacheCache')
+    }
 
 });
 
