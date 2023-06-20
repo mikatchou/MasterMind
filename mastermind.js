@@ -53,13 +53,23 @@ const couleurSelectElements = document.querySelectorAll('.couleurSelect');
 // Ajouter les gestionnaires d'événements pour le glissement
 couleurSelectElements.forEach((element) => {
     element.addEventListener('dragstart', dragStart);
+    element.addEventListener('touchstart', touchStart);
 });
 
-// Gestionnaire d'événement pour le début du glissement
+// Gestionnaire d'événement pour le début du glissement (souris)
 function dragStart(event) {
     const cloneElement = event.target.cloneNode(true);
     event.dataTransfer.setData('text/plain', cloneElement.id);
 }
+
+// Gestionnaire d'événement pour le début du glissement (tactile)
+function touchStart(event) {
+    const touchX = event.touches[0].clientX;
+    const touchY = event.touches[0].clientY;
+    event.target.addEventListener('touchmove', touchMove);
+    event.target.addEventListener('touchend', touchEnd);
+}
+
 
 // Ajouter le gestionnaire d'événement pour le dépôt (drop)
 const couleurElements = document.querySelectorAll('#couleur .Nb');
@@ -68,12 +78,16 @@ couleurElements.forEach((element) => {
     element.addEventListener('drop', drop);
 });
 
-// Gestionnaire d'événement pour autoriser le dépôt
+// Gestionnaire d'événement pour autoriser le dépôt (souris)
 function allowDrop(event) {
     event.preventDefault();
 }
+// Gestionnaire d'événement pour autoriser le dépôt (tactile)
+function touchMove(event) {
+    event.preventDefault();
+}
 
-// Gestionnaire d'événement pour le dépôt (drop)
+// fonction pour le dépôt (souris)
 function drop(event) {
     event.preventDefault();
     const couleurId = event.dataTransfer.getData('text/plain');
@@ -95,6 +109,33 @@ function drop(event) {
             couleurElement.style.background = 'gray'
         }
     }
+}
+// fonction pour le dépôt (tactile)
+function touchEnd(event) {
+    const couleurId = event.target.id;
+    const couleurElement = document.getElementById(couleurId);
+    const targetElement = document.elementFromPoint(
+    event.changedTouches[0].clientX,
+    event.changedTouches[0].clientY
+    );
+
+    if (targetElement.classList.contains('Nb') && targetElement.children.length === 0) {
+        const cloneElement = couleurElement.cloneNode(true);
+        targetElement.appendChild(cloneElement);
+        const targetChildren = targetElement.children;
+
+        for (let i = 0; i < targetChildren.length; i++) {
+            const clonedElement = targetChildren[i];
+            clonedElement.draggable = false;
+            clonedElement.style.cursor = 'default';
+            couleurElement.draggable = false;
+            couleurElement.style.cursor = 'default';
+            couleurElement.style.background = 'gray';
+        }
+    }
+
+    event.target.removeEventListener('touchmove', touchMove);
+    event.target.removeEventListener('touchend', touchEnd);
 }
 
 // Fonction pour diminuer le nombre d'essais et vérifier si perdu

@@ -24,14 +24,14 @@
                     <button class="subRes cacheCache" id="reset" type="reset">annuler</button>
                 </div>
                 <div id="blocCouleurSelect" class="cacheCache">
-                    <p class="couleurSelect" id="red" draggable="true" ondragstart="dragStart(event)"></p>
-                    <p class="couleurSelect" id="green" draggable="true" ondragstart="dragStart(event)"></p>
-                    <p class="couleurSelect" id="blue" draggable="true" ondragstart="dragStart(event)"></p>
-                    <p class="couleurSelect" id="yellow" draggable="true" ondragstart="dragStart(event)"></p>
-                    <p class="couleurSelect" id="orange" draggable="true" ondragstart="dragStart(event)"></p>
-                    <p class="couleurSelect" id="pink" draggable="true" ondragstart="dragStart(event)"></p>
-                    <p class="couleurSelect" id="black" draggable="true" ondragstart="dragStart(event)"></p>
-                    <p class="couleurSelect" id="white" draggable="true" ondragstart="dragStart(event)"></p>
+                    <p class="couleurSelect" id="red" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
+                    <p class="couleurSelect" id="green" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
+                    <p class="couleurSelect" id="blue" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
+                    <p class="couleurSelect" id="yellow" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
+                    <p class="couleurSelect" id="orange" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
+                    <p class="couleurSelect" id="pink" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
+                    <p class="couleurSelect" id="black" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
+                    <p class="couleurSelect" id="white" draggable="true" ondragstart="dragStart(event), touchStart(event)"></p>
                 </div>
                 <div class="blocEssai cacheCache">
                     <p class="texteEssai" id="titreEssai">Nombre d'essai(s) restant(s) :</p>
@@ -56,10 +56,10 @@
                 <div id="blocCouleur" class="blocCouleur">
                     <div id="couleurIndice">
                         <div id="couleur">
-                            <div class="Nb" id="color1" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
-                            <div class="Nb" id="color2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
-                            <div class="Nb" id="color3" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
-                            <div class="Nb" id="color4" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                            <div class="Nb" id="color1" ondragover="allowDrop(event), touchMove(event)" ondrop="drop(event), touchEnd(event)"></div>
+                            <div class="Nb" id="color2" ondragover="allowDrop(event), touchMove(event)" ondrop="drop(event), touchEnd(event)"></div>
+                            <div class="Nb" id="color3" ondragover="allowDrop(event), touchMove(event)" ondrop="drop(event), touchEnd(event)"></div>
+                            <div class="Nb" id="color4" ondragover="allowDrop(event), touchMove(event)" ondrop="drop(event), touchEnd(event)"></div>
                         </div>
                         <div id="indice" class="hidden">
                             <p class="bulle" id="indice1"></p>
