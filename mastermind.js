@@ -4,6 +4,15 @@ setTimeout(function() {
     titleElement.classList.add('visible');
 }, 100);
 
+// fonction pour réinitialiser les couleurs d'origine 
+const tableauColors = document.querySelectorAll('.couleurSelect');
+const tableauBgColor = Array.from(tableauColors).map((element) => element.style.backgroundColor);
+
+function réinitialiserCouleurs(tabC, tabBgC) {
+    for (i = 0; i < tabC.length; i++){
+        tabC[i].style.backgroundColor = tabBgC[i];
+    }
+}
 
 // fonction pour générer des couleurs et les stocker dans la case "couleurs à deviner"
 const colorsRandom = ['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'black', 'white'];
@@ -75,18 +84,29 @@ function drop(event) {
         // Créer le clone de l'élément
         const cloneElement = couleurElement.cloneNode(true);
         targetElement.appendChild(cloneElement);
+        const targetChildren = targetElement.children;
+        //boucle pour rendre les couleurs séléctionnées non draggable et gris
+        for (let i = 0; i < targetChildren.length; i++) {
+            const clonedElement = targetChildren[i];
+            clonedElement.draggable = false;
+            clonedElement.style.cursor = 'default';
+            couleurElement.draggable = false;
+            couleurElement.style.cursor = 'default';
+            couleurElement.style.background = 'gray'
+        }
     }
 }
 
+// Fonction pour diminuer le nombre d'essais et vérifier si perdu
 let essais = document.getElementById('nombreEssai');
 let nombreEssais = parseInt(essais.innerText);
 let gagne = false
-// Fonction pour diminuer le nombre d'essais et vérifier si essai épuisé, donc perdu
+
 function diminuerEssais() {
     nombreEssais--;
     essais.innerText = nombreEssais.toString();
 
-    if (nombreEssais === 9 && !gagne) {
+    if (nombreEssais === 0 && !gagne) {
 
         const boutonAnnuler = document.getElementById('reset')
         const blocCouleurSelect = document.getElementById('blocCouleurSelect');
@@ -116,10 +136,9 @@ function diminuerEssais() {
 
             location.reload()
         })
+        return true
     }
 }
-
-let tableauCouleurs = []
 
 // fonction pour comparer les couleurs, indiquer si gagner et afficher dans indice
 function verifierCouleur(random, select) {
@@ -188,6 +207,7 @@ function verifierCouleur(random, select) {
         ajoutInfo.style.textAlign = 'center'
         ajoutInfo.style.transition = '0.7s'
 
+        // affichage d'un png différent selon la largeur de l'affichage
         if (window.innerWidth > 900) {
             daboulouYesYesYes.classList.remove('cacheCache')
         } else {
@@ -204,10 +224,12 @@ function verifierCouleur(random, select) {
     }
 }
 
+//écouteur d'evenement pour afficher les élément du jeu au démarrage
+let tableauCouleurs;
 const commencer = document.getElementById('submit');
 commencer.addEventListener('click', function() {
 
-    //réaffichage des couleurs et des essais au démarrage du jeu 
+    //réaffichage des couleurs et des essais
     const boutonAnnuler = document.getElementById('reset')
     const blocCouleurSelect = document.getElementById('blocCouleurSelect');
     const blocEssai = document.querySelector('.blocEssai');
@@ -224,11 +246,10 @@ commencer.addEventListener('click', function() {
     tableauCouleurs = genererCouleur();
     console.log(tableauCouleurs);
 
-
 });
 
-    let iteration = 0;
-//fonction permettant de signaler si 4 couleurs ne sont pas sélectionnées
+//fonction pour signaler si 4 couleurs ne sont pas sélectionnées
+let iteration = 0;
 function repeatColorChange() {
 
     const divsVides = document.querySelectorAll('#couleur .Nb:empty');
@@ -253,12 +274,23 @@ function repeatColorChange() {
     }, delay);
 }
 
+//écouteur d'évenement pour annuler les couleurs séléctionnées 
 const annuler = document.getElementById('reset')
 annuler.addEventListener('click', function(){
 
+    // rendre à nouveau les couleurs séléctionnées draggable 
+    let couleurElement = document.querySelectorAll('.couleurSelect')
+    couleurElement.forEach((element) => {
+        element.draggable = true
+        element.style.cursor ='pointer'
+    })
+    
+    réinitialiserCouleurs(tableauColors,tableauBgColor);
+
+    // supprimer les couleurs séléctionnées
     const jeuElement = document.getElementById('blocCouleur');
-    // Réinitialiser les couleurs sélectionnées dans le bloc
     const couleurElements = jeuElement.querySelectorAll('#couleur .Nb');
+
     couleurElements.forEach((element) => {
         if (element.children.length > 0) {
             element.removeChild(element.children[0]);
@@ -266,7 +298,7 @@ annuler.addEventListener('click', function(){
     });
 })
 
-//code pour lancer une fonction après validation des couleurs par l'utilisateur
+//écouteur d'évenement pour lancer une fonction après validation des couleurs par l'utilisateur
 const boutonValider = document.getElementById('valider');
 
 boutonValider.addEventListener('click', function() {
@@ -308,7 +340,7 @@ boutonValider.addEventListener('click', function() {
     
     gagne =  verifierCouleur(tableauCouleurs, colorsSelected);
 
-    diminuerEssais();
+    let lost = diminuerEssais();
 
     // Cloner le bloc de jeu
     const jeuElement = document.getElementById('blocCouleur');
@@ -352,10 +384,16 @@ boutonValider.addEventListener('click', function() {
     // Ajouter le nouveau bloc de jeu à la section du jeu
     divNouveauxBlocs.appendChild(nouveauBlocJeu);
 
-    console.log(essais)
+    réinitialiserCouleurs(tableauColors, tableauBgColor)
+
+    let couleurElement = document.querySelectorAll('.couleurSelect')
+    couleurElement.forEach((element) => {
+        element.draggable = true
+        element.style.cursor ='pointer'
+    })
 
     // cacher le blocCouleur si gagné ou perdu
-    if (gagne || nombreEssais === 9) {
+    if (gagne || lost) {
         const blocDrop = document.querySelector('#jeu .blocCouleur')
         blocDrop.classList.add('cacheCache')
     }
