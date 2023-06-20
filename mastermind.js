@@ -235,7 +235,9 @@ commencer.addEventListener('click', function() {
     const blocEssai = document.querySelector('.blocEssai');
     const boutonCommencer = document.getElementById('submit')
     const boutonValider = document.getElementById('valider')
+    const blocInfo = document.querySelector('#info')
 
+    blocInfo.style.justifyContent = 'space-between'
     blocCouleurSelect.classList.remove('cacheCache');
     blocEssai.classList.remove('cacheCache');
     boutonAnnuler.classList.remove('cacheCache')
