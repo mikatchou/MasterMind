@@ -236,7 +236,9 @@ commencer.addEventListener('click', function() {
     const boutonCommencer = document.getElementById('submit')
     const boutonValider = document.getElementById('valider')
     const blocInfo = document.querySelector('#info')
+    const video = document.querySelector('#blocCommentJouer')
 
+    video.style.display = 'none'
     blocInfo.style.justifyContent = 'space-between'
     blocCouleurSelect.classList.remove('cacheCache');
     blocEssai.classList.remove('cacheCache');
